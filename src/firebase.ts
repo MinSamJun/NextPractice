@@ -6,7 +6,18 @@ import {
 } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
-import { getAnalytics } from "firebase/analytics";
+// Firebase Analytics는 클라이언트 환경에서만 로드
+let analytics;
+if (typeof window !== "undefined") {
+  import("firebase/analytics").then((module) => {
+    const { getAnalytics, isSupported } = module;
+    isSupported().then((supported) => {
+      if (supported) {
+        analytics = getAnalytics(app);
+      }
+    });
+  });
+}
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -22,6 +33,5 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
-const analytics = getAnalytics(app);
 
 export { auth, db, createUserWithEmailAndPassword, signInWithEmailAndPassword };

@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "postinstall": "next telemetry disable && npm install @next/swc-linux-x64-gnu @next/swc-linux-x64-musl"
   },
   "dependencies": {
     "@apollo/client": "^3.10.8",

@@ -6,10 +6,11 @@ import { auth, signInWithEmailAndPassword } from "../../firebase";
 import "../globals.css";
 import "../../styles/submit.css";
 
+// useState는 react의 기능으로 [변수, 변수의 값을 변화 시키는 함수]로 이루어진 배열을 정의한다
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState(""); // 오류 메시지 상태 추가
+  const [error, setError] = useState("");
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {

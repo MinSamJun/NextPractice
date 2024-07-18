@@ -11,10 +11,11 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const router = useRouter();
 
+  // React.FormEvent로 인해 제출 버튼을 누르면 서버로 폼을 제출하지만 e.preventDefault로 그것을 방지하고 자바스크립트 코드를 사용하여 제출한다
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      // Firebase Authentication을 사용하여 사용자 생성
+      // firebase Auth로 회원가입
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         email,
@@ -22,7 +23,7 @@ const Signup = () => {
       );
       const user = userCredential.user;
 
-      // Firestore에 사용자 데이터 추가
+      // firestore에 새로운 id 추가
       await addDoc(collection(db, "users"), {
         uid: user.uid,
         email: user.email,
